@@ -4,3 +4,4 @@ docs/
 .php-cs-fixer.cache
 .phpunit.result.cache
 phpunit.xml
+.DS_Store
