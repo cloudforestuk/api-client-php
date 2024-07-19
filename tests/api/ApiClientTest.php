@@ -30,6 +30,6 @@ final class ApiClientTest extends TestBase
         $api = $this->getCloudForestClient();
         $url = $api->getConnectionURL($callback);
 
-        $this->assertSame($expected, 'this will fail');
+        $this->assertSame($expected, $url);
     }
 }
