@@ -16,6 +16,8 @@ enum ListingState: string
 /**
  * ListingDto defines the shape of the listing data used by the CloudForest API.
  *
+ * minor change
+ *
  * @package CloudForest
  */
 class ListingDto
