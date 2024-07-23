@@ -105,6 +105,20 @@ class ListingDto
     public $licenceNumber = '';
 
     /**
+     * The inventory info for this listing in JSON format. Use this to break out
+     * the listing into individual components. This allows a single listing to
+     * represent a more complex structure. For example:
+     * - A decking installation package (decking planks, uprights, joists and a
+     *   fixing kit)
+     * - A compartment of standing timber in a forest
+     * For Standing Timber this is likely to be the StandardCompartment
+     * specification supplied as a list. For other categories alternative data
+     * structures can be used.
+     * @var array<StandardCompartment>
+     */
+    public $inventory = [];
+
+    /**
      * The categories the listing should appear within. In theory this supports
      * multiple categories. In practice you should set just one for now. Each
      * category is an integer ID into the CloudForest category list. Currently
@@ -160,12 +174,6 @@ class ListingDto
      * @var string
      */
     public $companyId = '';
-
-    /**
-     * The compartment info in json format
-     * @var StandardCompartment
-     */
-    public $compartmentInfo;
 
     public function __construct()
     {
