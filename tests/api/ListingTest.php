@@ -19,24 +19,31 @@ final class ListingTest extends TestBase
         $this->assertIsString($access);
         $this->assertNotEmpty($access);
 
+        // Get the API client and set the access token from above.
         $api = $this->getCloudForestClient();
         $api->setAccess($access);
 
+        // Create an inventory structure
         $compartment = new StandardCompartment('1', 'PHPUnit Forest', '', '', '', []);
         $subcompartment = new StandardSubCompartment('2');
         $subcompartment->name = 'PHPUnit Forest SubComp 1A';
         $compartment->subCompartments = [$subcompartment];
 
+        // Create a listing and attach the inventory
         $listing = new ListingDto();
         $listing->title = 'Test Listing from PHP Unit';
         $listing->description = 'This is a test Listing from PHP Unit';
         $listing->inventory = [$compartment];
 
+        // Use the API to create the listing in CloudForest
         $listingUuid = $api->listing->create($listing);
         $this->assertIsString($listingUuid);
         $this->assertNotEmpty($listingUuid);
 
+        // Fetch the listing from CloudForest using its UUID only
         $newListing = $api->listing->findOne($listingUuid);
+
+        // Verify the returned listing has the same data as above.
         $this->assertEquals('Test Listing from PHP Unit', $newListing['title']);
         $this->assertIsArray($newListing['inventory']);
         $inventory = $newListing['inventory'];
