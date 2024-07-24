@@ -95,4 +95,29 @@ class ListingModule extends ApiModuleBase
         $data = $this->getDataAsString($content);
         return $data;
     }
+
+    /**
+     * Find one listing using its UUID.
+     * @param string $listingUuid
+     * @return mixed The listing data as an associative array.
+     */
+    public function findOne(string $listingUuid)
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/api/listings/' . $listingUuid,
+                [
+                    'headers' => $this->getHeadersWithAccessBearer(),
+                ]
+            );
+        } catch (GuzzleException $e) {
+            throw $e;
+        }
+
+        $body = $response->getBody()->getContents();
+        $content = json_decode($body, true);
+        $data = $this->getDataAsArray($content);
+        return $data;
+    }
 }
