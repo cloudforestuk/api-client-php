@@ -33,18 +33,11 @@ class StandardRepresentativeTree
 
 
     /**
-     * @see    Create the API client and its modules.
-     * @param  StandardTree $treeDetails     The tree details.
-     * @param  StandardTreeDistributionStats $distributionStats The API secret issued by CloudForest.
-     * @param  float $treesPerHa   The number of trees per hectare of this species.
+     * @see    Create the StandardRepresentativeTree.
      * @return void
      */
-    public function __construct(StandardTree $treeDetails, StandardTreeDistributionStats $distributionStats, float $treesPerHa)
+    public function __construct()
     {
-        $this->treeDetails = $treeDetails;
-        $this->distributionStats = $distributionStats;
-        $this->treesPerHa = $treesPerHa;
-        $this->volumePerHa = $this->calcVolumePerHa();
     }
 
     /**
@@ -53,7 +46,8 @@ class StandardRepresentativeTree
      */
     public function calcVolumePerHa(): float
     {
-        return $this->treeDetails->volume * $this->treesPerHa;
+        $this->volumePerHa =  $this->treeDetails->volume * $this->treesPerHa;
+        return $this->volumePerHa;
     }
 
 }

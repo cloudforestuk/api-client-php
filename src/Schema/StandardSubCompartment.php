@@ -38,12 +38,10 @@ class StandardSubCompartment
 
     /**
      * @see    Create the SubCompartment.
-     * @param  string $id     The SubCompartment ID.
      * @return void
      */
-    public function __construct(string $id)
+    public function __construct()
     {
-        $this->id = $id;
     }
 
     /**

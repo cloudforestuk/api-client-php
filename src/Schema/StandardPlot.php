@@ -48,11 +48,9 @@ class StandardPlot
 
     /**
      * @see    Create the Plot.
-     * @param  string $id     The Plot ID.
      * @return void
      */
-    public function __construct(string $id)
+    public function __construct()
     {
-        $this->id = $id;
     }
 }

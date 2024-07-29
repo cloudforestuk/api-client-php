@@ -32,12 +32,10 @@ class StandardTreeDistributionStats
 
     /**
      * @see    Create the Tree distribution statistics.
-     * @param  float $heightRange     The Tree distribution height range.
      * @return void
      */
-    public function __construct(float $heightRange)
+    public function __construct()
     {
-        $this->heightRange = $heightRange;
     }
 
 }

@@ -34,12 +34,10 @@ class StandardInventory
 
     /**
      * @see    Create the Inventory.
-     * @param  string $notes     The Inventory notes.
      * @return void
      */
-    public function __construct(string $notes)
+    public function __construct()
     {
-        $this->notes = $notes;
     }
 
 }

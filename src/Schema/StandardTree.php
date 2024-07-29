@@ -40,11 +40,9 @@ class StandardTree
 
     /**
      * @see    Create the Tree Species.
-     * @param  int $speciesId     The species ID.
      * @return void
      */
-    public function __construct(int $speciesId)
+    public function __construct()
     {
-        $this->speciesId = $speciesId;
     }
 }
