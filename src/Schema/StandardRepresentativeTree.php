@@ -26,7 +26,7 @@ class StandardRepresentativeTree
 
 
     /**
-     * trees per hectare
+     * Volume per hectare
      * @var float
      */
     public $volumePerHa;
