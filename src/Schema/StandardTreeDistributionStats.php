@@ -10,13 +10,13 @@ class StandardTreeDistributionStats
      * height range
      * @var float|null
      */
-    public $heightRange;
+    public $heightRange_m;
 
     /**
      * dbh range
      * @var float|null
      */
-    public $dbhRange;
+    public $dbhRange_cm;
 
     /**
      * height variance

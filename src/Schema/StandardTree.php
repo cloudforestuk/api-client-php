@@ -14,17 +14,17 @@ class StandardTree
     public $speciesId;
 
     /**
-     * height of this tree
+     * height of this tree in m
      * if this is a representative tree, thisshould correspond to the mean height
      * @var float
      */
-    public $height;
+    public $height_m;
     /**
-     * dbh of this tree
+     * dbh of this tree in cm
      * if this is a representative tree, thisshould correspond to the mean dbh
      * @var float
      */
-    public $dbh;
+    public $dbh_cm;
 
     /**
      * volume
