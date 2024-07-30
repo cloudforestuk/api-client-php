@@ -36,7 +36,7 @@ class StandardTree
      * volume calculation method: eg blue book look up
      * @var string
      */
-    public $volumeCalculationethod;
+    public $volumeCalculationMethod;
 
     /**
      * @see    Create the Tree Species.
