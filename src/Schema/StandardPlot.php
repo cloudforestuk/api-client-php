@@ -24,7 +24,8 @@ class StandardPlot
 
     /**
      * TODO
-     * @var string
+     * lat, lng
+     * @var array{float,float}
      */
     public $centroid;
 
