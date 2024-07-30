@@ -16,28 +16,17 @@ class StandardTree
     public $speciesId;
 
     /**
-<<<<<<< HEAD
-     * height of this tree in m
-     * if this is a representative tree, thisshould correspond to the mean height
-     * @var float
-     */
-    public $height_m;
-    /**
-     * dbh of this tree in cm
-     * if this is a representative tree, thisshould correspond to the mean dbh
-=======
      * Height of this tree in metres.
      *
      * If this is a representative tree, this is the mean height of the representative tree.
      * @var float
      */
-    public $height;
+    public $height_m;
 
     /**
      * dbh of this tree in metres.
      *
      * If this is a representative tree, this is the mean dbh of the representative tree.
->>>>>>> main
      * @var float
      */
     public $dbh_cm;
@@ -55,12 +44,7 @@ class StandardTree
     public $volumeCalculationMethod;
 
     /**
-<<<<<<< HEAD
      * @see    Create the Tree Species.
-=======
-     * Create the Standard Tree.
-     * @param  int $speciesId     The species ID.
->>>>>>> main
      * @return void
      */
     public function __construct()
