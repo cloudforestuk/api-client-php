@@ -19,7 +19,6 @@ class StandardTreeDistributionStats
      * in the order [min,max]
      *
      * @var array{float,float}
-     * @var float
      */
     public $dbhRange;
 
@@ -40,18 +39,18 @@ class StandardTreeDistributionStats
     /**
      * Create the Tree distribution statistics.
      *
-     * @param  array $heightRange     The Tree distribution height range.
-     * @param  array $dbhRange        The Tree distribution dbh range.
+     * @param array{float,float} $heightRange The Tree distribution height range.
+     * @param array{float,float} $dbhRange    The Tree distribution dbh range.
      * @return void
      */
     public function __construct(array $heightRange, array $dbhRange)
     {
-        if (count($heightRange) !== 2) {
+        if (count($heightRange) != 2) {
             throw new \Exception("heightRange must be an array of two floats");
         }
         $this->heightRange = $heightRange;
 
-        if (count($dbhRange) !== 2) {
+        if (count($dbhRange) != 2) {
             throw new \Exception("heightRange must be an array of two floats");
         }
         $this->dbhRange = $dbhRange;
