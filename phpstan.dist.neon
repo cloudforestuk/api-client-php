@@ -4,3 +4,4 @@ parameters:
         - src
     typeAliases:
         JsonType: 'string|int|bool|float|null|array<string, mixed>|array<mixed>'
+    treatPhpDocTypesAsCertain: false

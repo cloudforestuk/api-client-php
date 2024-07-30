@@ -8,20 +8,25 @@ class StandardTree
 {
     /**
      * species ID
-     * todo create common list
+     * @todo create common list
+     * @todo How about the 3-letter codes? Then we do not need to rely on IDs
+     * into a common list.
      * @var int
      */
     public $speciesId;
 
     /**
-     * height of this tree
-     * if this is a representative tree, thisshould correspond to the mean height
+     * Height of this tree in metres.
+     *
+     * If this is a representative tree, this is the mean height of the representative tree.
      * @var float
      */
     public $height;
+
     /**
-     * dbh of this tree
-     * if this is a representative tree, thisshould correspond to the mean dbh
+     * dbh of this tree in metres.
+     *
+     * If this is a representative tree, this is the mean dbh of the representative tree.
      * @var float
      */
     public $dbh;
@@ -36,10 +41,10 @@ class StandardTree
      * volume calculation method: eg blue book look up
      * @var string
      */
-    public $volumeCalculationethod;
+    public $volumeCalculationMethod;
 
     /**
-     * @see    Create the Tree Species.
+     * Create the Standard Tree.
      * @param  int $speciesId     The species ID.
      * @return void
      */
