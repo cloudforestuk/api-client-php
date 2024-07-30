@@ -8,7 +8,9 @@ class StandardTree
 {
     /**
      * species ID
-     * todo create common list
+     * @todo create common list
+     * @todo How about the 3-letter codes? Then we do not need to rely on IDs
+     * into a common list.
      * @var int
      */
     public $speciesId;
