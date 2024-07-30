@@ -44,7 +44,7 @@ class StandardTree
     public $volumeCalculationMethod;
 
     /**
-     * @see    Create the Tree Species.
+     * Create the Tree Species.
      * @param  int $speciesId     The species ID.
      * @return void
      */
