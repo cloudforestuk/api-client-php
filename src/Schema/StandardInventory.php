@@ -8,9 +8,9 @@ class StandardInventory
 {
     /**
      * notes
-     * @var string
+     * @var string|null
      */
-    public $notes = '';
+    public $notes;
 
     /**
      * date

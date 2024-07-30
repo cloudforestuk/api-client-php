@@ -25,6 +25,18 @@ class StandardSubCompartment
     public $name = '';
 
     /**
+     * boundary
+     * @var string|null
+     */
+    public $boundary;
+
+    /**
+     * area in hectares
+     * @var float|null
+     */
+    public $area_ha;
+
+    /**
      * inventory array (may be for multiple years or seasons, so use array)
      * @var  StandardInventory[]
      */

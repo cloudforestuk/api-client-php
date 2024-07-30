@@ -8,25 +8,25 @@ class StandardTreeDistributionStats
 {
     /**
      * height range
-     * @var float
+     * @var float|null
      */
     public $heightRange;
 
     /**
      * dbh range
-     * @var float
+     * @var float|null
      */
     public $dbhRange;
 
     /**
      * height variance
-     * @var float
+     * @var float|null
      */
     public $heightVariance;
 
     /**
      * dbh variance
-     * @var float
+     * @var float|null
      */
     public $dbhVariance;
 

@@ -25,10 +25,16 @@ class StandardCompartment
     public $notes = '';
 
     /**
-     * TODO
-     * @var string
+     * boundary
+     * @var string|null
      */
     public $boundary;
+
+    /**
+     * area in ha
+     * @var float|null
+     */
+    public $area_ha;
 
     /**
      * TODO
