@@ -14,7 +14,7 @@ class StandardTree
     public $speciesId;
 
     /**
-     * Height of this tree.
+     * Height of this tree in metres.
      *
      * If this is a representative tree, this is the mean height of the representative tree.
      * @var float
@@ -22,7 +22,7 @@ class StandardTree
     public $height;
 
     /**
-     * dbh of this tree.
+     * dbh of this tree in metres.
      *
      * If this is a representative tree, this is the mean dbh of the representative tree.
      * @var float
