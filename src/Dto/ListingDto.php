@@ -13,6 +13,13 @@ enum ListingState: string
     case CLOSED = 'CLOSED';
 }
 
+enum PriceType: string
+{
+    case NONE = 'NONE';
+    case OFFERS = 'OFFERS';
+    case EXACT = 'EXACT';
+}
+
 /**
  * ListingDto defines the shape of the listing data used by the CloudForest API.
  *
@@ -53,6 +60,14 @@ class ListingDto
      * @var string
      */
     public $description = 'A testing listing created from the CloudForest PHP ApiClient';
+
+    /**
+     * The price type. Set it to NONE until the user has a chance to got to
+     * CloudForest to enter their preferred pricing.
+     *
+     * @var value-of<PriceType>
+     */
+    public $priceType = 'NONE';
 
     /**
      * The units in which the listing is available as a freeform string. EG
