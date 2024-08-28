@@ -20,6 +20,12 @@ enum PriceType: string
     case EXACT = 'EXACT';
 }
 
+enum ListingWhen: string
+{
+    case NOW = 'NOW';
+    case FUTURE = 'FUTURE';
+}
+
 /**
  * ListingDto defines the shape of the listing data used by the CloudForest API.
  *
@@ -62,12 +68,20 @@ class ListingDto
     public $description = 'A testing listing created from the CloudForest PHP ApiClient';
 
     /**
-     * The price type. Set it to NONE until the user has a chance to got to
+     * The price type. Set it to NONE until the user has a chance to go to
      * CloudForest to enter their preferred pricing.
      *
      * @var value-of<PriceType>
      */
     public $priceType = 'NONE';
+
+    /**
+     * When the listing is available. Set it to NOW until the user has a chance
+     * to go to CloudForest to enter their preferred availability.
+     *
+     * @var value-of<ListingWhen>
+     */
+    public $when = 'NOW';
 
     /**
      * The units in which the listing is available as a freeform string. EG
