@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CloudForest\ApiClientPhp\Schema;
 
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
+use CloudForest\ApiClientPhp\Schema\SubcompartmentSchema;
 
 enum CompartmentType: string
 {
@@ -73,7 +74,12 @@ class CompartmentSchema
      */
     public $centroid;
 
-    /** @todo subcompartments */
+    /**
+     * The collection of Subcompartments within this Compartment.
+     *
+     * @var Array<SubcompartmentSchema>
+     */
+    public $subcompartments = [];
 
     /**
      * Constructor. Instantiate classes where required.
