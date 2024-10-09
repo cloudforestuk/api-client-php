@@ -8,6 +8,11 @@ use Tests\TestBase;
 use CloudForest\ApiClientPhp\Dto\ListingDto;
 use CloudForest\ApiClientPhp\Schema\StandardCompartment;
 use CloudForest\ApiClientPhp\Schema\StandardSubCompartment;
+use CloudForest\ApiClientPhp\Schema\CompartmentSchema;
+use CloudForest\ApiClientPhp\Schema\CompartmentType;
+use CloudForest\ApiClientPhp\Schema\GeojsonGeometrySchema;
+use CloudForest\ApiClientPhp\Schema\GeojsonGeometryType;
+use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
 
 final class ListingTest extends TestBase
 {
@@ -23,11 +28,37 @@ final class ListingTest extends TestBase
         $api = $this->getCloudForestClient();
         $api->setAccess($access);
 
-        // Create an inventory structure
-        $compartment = new StandardCompartment('1', 'PHPUnit Forest', '', '', '', []);
-        $subcompartment = new StandardSubCompartment('2');
-        $subcompartment->name = 'PHPUnit Forest SubComp 1A';
-        $compartment->subCompartments = [$subcompartment];
+        // Create an inventory structure:
+        // Inventory 1, create a boundary Geojson
+        $boundaryGeometry = new GeojsonGeometrySchema();
+        $boundaryGeometry->type = GeojsonGeometryType::POLYGON;
+        $boundaryGeometry->coordinates = [
+            [-1, 53.2], [-1.1, 53.3],
+        ];
+        $boundary = new GeojsonSchema();
+        $boundary->geometry = $boundaryGeometry;
+
+        // Inventory 2, create a centroid Geojson
+        $centroidGeometry = new GeojsonGeometrySchema();
+        $centroidGeometry->type = GeojsonGeometryType::POINT;
+        $centroidGeometry->coordinates = [-1.05, 53.25];
+        $centroid = new GeojsonSchema();
+        $centroid->geometry = $boundaryGeometry;
+
+        // Inventory 3, create a compartment
+        $compartment = new CompartmentSchema();
+        $compartment->id = null;
+        $compartment->type = CompartmentType::COMPARTMENT;
+        $compartment->name = 'PHPUnit Forest Compartment';
+        $compartment->number = '1';
+        $compartment->notes = 'These are the notes';
+        $compartment->boundary = $boundary;
+        $compartment->centroid = $centroid;
+
+        // @todo: Subcompartments...
+        //$subcompartment = new StandardSubCompartment('2');
+        //$subcompartment->name = 'PHPUnit Forest SubComp 1A';
+        //$compartment->subCompartments = [$subcompartment];
 
         // Create a listing and attach the inventory
         $listing = new ListingDto();
@@ -49,10 +80,12 @@ final class ListingTest extends TestBase
         $inventory = $newListing['inventory'];
         $this->assertCount(1, $inventory);
         $compartment = $inventory[0];
-        $this->assertEquals('PHPUnit Forest', $compartment['name']);
-        $this->assertIsArray($compartment['subCompartments']);
-        $this->assertCount(1, $compartment['subCompartments']);
-        $subcompartment = $compartment['subCompartments'][0];
-        $this->assertEquals('PHPUnit Forest SubComp 1A', $subcompartment['name']);
+        $this->assertEquals('PHPUnit Forest Compartment', $compartment['name']);
+
+        // @todo subcompartments
+        //$this->assertIsArray($compartment['subCompartments']);
+        //$this->assertCount(1, $compartment['subCompartments']);
+        //$subcompartment = $compartment['subCompartments'][0];
+        //$this->assertEquals('PHPUnit Forest SubComp 1A', $subcompartment['name']);
     }
 }

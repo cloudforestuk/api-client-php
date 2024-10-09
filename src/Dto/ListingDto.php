@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CloudForest\ApiClientPhp\Dto;
 
-use CloudForest\ApiClientPhp\Schema\StandardCompartment;
+use CloudForest\ApiClientPhp\Schema\CompartmentSchema;
 
 enum ListingState: string
 {
@@ -29,7 +29,7 @@ enum ListingWhen: string
 /**
  * ListingDto defines the shape of the listing data used by the CloudForest API.
  *
- * @package CloudForest
+ * @package CloudForest\Dto
  */
 class ListingDto
 {
@@ -143,7 +143,7 @@ class ListingDto
      * For Standing Timber this is likely to be the StandardCompartment
      * specification supplied as a list. For other categories alternative data
      * structures can be used.
-     * @var array<StandardCompartment>
+     * @var array<CompartmentSchema>
      */
     public $inventory = [];
 
