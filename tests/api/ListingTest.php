@@ -6,8 +6,6 @@ namespace Tests\Api;
 
 use Tests\TestBase;
 use CloudForest\ApiClientPhp\Dto\ListingDto;
-use CloudForest\ApiClientPhp\Schema\StandardCompartment;
-use CloudForest\ApiClientPhp\Schema\StandardSubCompartment;
 use CloudForest\ApiClientPhp\Schema\CompartmentSchema;
 use CloudForest\ApiClientPhp\Schema\CompartmentType;
 use CloudForest\ApiClientPhp\Schema\GeojsonGeometrySchema;
