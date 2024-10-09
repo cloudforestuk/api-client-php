@@ -11,6 +11,7 @@ use CloudForest\ApiClientPhp\Schema\CompartmentType;
 use CloudForest\ApiClientPhp\Schema\GeojsonGeometrySchema;
 use CloudForest\ApiClientPhp\Schema\GeojsonGeometryType;
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
+use CloudForest\ApiClientPhp\Schema\InventorySchema;
 use CloudForest\ApiClientPhp\Schema\SubcompartmentSchema;
 use CloudForest\ApiClientPhp\Schema\SubcompartmentType;
 
@@ -64,7 +65,16 @@ final class ListingTest extends TestBase
         $subcompartment->centroid = $centroid;
         $subcompartment->area = 12.36;
 
-        // Inventory 5, attach the subcompartment to the compartment
+        // Inventory 5, create an inventory record for the subcompartment
+        $inventory = new InventorySchema();
+        $inventory->id = null;
+        $inventory->notes = 'These are the inventory notes';
+        $inventory->year = '1999';
+        $inventory->volumeTotal = 1234.5;
+        $inventory->basalAreaTotal = 2000.1;
+
+        // Inventory 6, create the structure
+        $subcompartment->inventorys = [$inventory];
         $compartment->subcompartments = [$subcompartment];
 
         // Create a listing and attach the inventory
@@ -97,5 +107,13 @@ final class ListingTest extends TestBase
         $subcompartment = $compartment['subcompartments'][0];
         $this->assertEquals('PHPUnit Forest Subcompartment', $subcompartment['name']);
         $this->assertEquals('B', $subcompartment['letter']);
+
+        // Verify the returned listing's inventory has the same data as above.
+        $this->assertIsArray($subcompartment['inventorys']);
+        $this->assertCount(1, $subcompartment['inventorys']);
+        $inventory = $subcompartment['inventorys'][0];
+        $this->assertEquals('These are the inventory notes', $inventory['notes']);
+        $this->assertEquals('1999', $inventory['year']);
+        $this->assertEquals('2000.1', $inventory['basalAreaTotal']);
     }
 }

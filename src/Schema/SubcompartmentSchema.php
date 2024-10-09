@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CloudForest\ApiClientPhp\Schema;
 
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
+use CloudForest\ApiClientPhp\Schema\InventorySchema;
 
 enum SubcompartmentType: string
 {
@@ -82,7 +83,14 @@ class SubcompartmentSchema
      */
     public $area = null;
 
-    /** @todo inventorys */
+    /**
+     * The inventories that have been taken for this Subcompartment. The field
+     * spelling 'inventorys' is to keep a consistent pattern of plurals
+     * thoughout this schema.
+     *
+     * @var Array<InventorySchema>
+     */
+    public $inventorys = [];
 
     /**
      * Constructor. Instantiate classes where required.
