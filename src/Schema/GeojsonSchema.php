@@ -10,7 +10,7 @@ use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * GeojsonSchema defines the shape of a Geojson geographic data structure to
- * send to the CloudForest Api.
+ * send to the CloudForest API.
  *
  * @package CloudForest\Schema
  */

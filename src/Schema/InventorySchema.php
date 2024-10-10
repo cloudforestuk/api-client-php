@@ -6,7 +6,7 @@ namespace CloudForest\ApiClientPhp\Schema;
 
 /**
  * InventorySchema defines the shape of the inventory data used to send an
- * inventory to the CloudForest Api.
+ * inventory to the CloudForest API.
  *
  * @package CloudForest\Schema
  */

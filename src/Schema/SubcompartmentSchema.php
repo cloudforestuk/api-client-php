@@ -11,7 +11,7 @@ use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * SubcompartmentSchema defines the shape of the subcompartment data used to
- * send an inventory to the CloudForest Api.
+ * send an inventory to the CloudForest API.
  *
  * @package CloudForest\Schema
  */

@@ -11,7 +11,7 @@ use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * CompartmentSchema defines the shape of the compartment data used to send an
- * inventory to the CloudForest Api.
+ * inventory to the CloudForest API.
  *
  * @package CloudForest\Schema
  */

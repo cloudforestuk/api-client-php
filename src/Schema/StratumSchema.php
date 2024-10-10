@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * StratumSchema defines the shape of the stratum data used to send an
- * inventory to the CloudForest Api.
+ * inventory to the CloudForest API.
  *
  * @package CloudForest\Schema
  */
