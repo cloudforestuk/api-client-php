@@ -28,7 +28,7 @@ class CompartmentSchema
      * The type of the compartment. This allows the logic unit 'compartment' to
      * also represent other physical units like parcels and zones, if necessary.
      *
-     * @var CompartmentType
+     * @var CompartmentTypeEnum
      */
     public $type = CompartmentTypeEnum::COMPARTMENT;
 
@@ -45,7 +45,7 @@ class CompartmentSchema
      *
      * @var string
      */
-    public $number = '1';
+    public $number;
 
     /**
      * Any notes about the compartment, or null if none.
@@ -77,10 +77,16 @@ class CompartmentSchema
 
     /**
      * Constructor. Supply the required properties (those without defaults).
+     * @param string $number
      * @return void
      */
-    public function __construct()
+    public function __construct(string $number)
     {
+        if (mb_strlen($number) < 1) {
+            throw new \Exception('Compartment number cannot be less than 1 characters');
+        }
+
+        $this->number = $number;
         $this->boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
         $this->centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
     }

@@ -20,7 +20,7 @@ class GeojsonSchema
      * The Geojson type. We only send Features types to CloudForest, not
      * FeatureCollection types, so this is hardcoded to 'Feature'.
      *
-     * @var GeojsonType
+     * @var GeojsonTypeEnum
      */
     public $type = GeojsonTypeEnum::FEATURE;
 

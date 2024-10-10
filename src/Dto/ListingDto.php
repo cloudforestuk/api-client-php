@@ -32,7 +32,7 @@ class ListingDto
      * Currently DRAFT listings are not fully supported so only create listings
      * in an OPEN state.
      *
-     * @var ListingState
+     * @var ListingStateEnum
      */
     public $state = ListingStateEnum::OPEN;
 
@@ -54,7 +54,7 @@ class ListingDto
      * The price type. Set it to NONE until the user has a chance to go to
      * CloudForest to enter their preferred pricing.
      *
-     * @var PriceType
+     * @var PriceTypeEnum
      */
     public $priceType = PriceTypeEnum::NONE;
 
@@ -62,7 +62,7 @@ class ListingDto
      * When the listing is available. Set it to NOW until the user has a chance
      * to go to CloudForest to enter their preferred availability.
      *
-     * @var ListingWhen
+     * @var ListingWhenEnum
      */
     public $when = ListingWhenEnum::NOW;
 

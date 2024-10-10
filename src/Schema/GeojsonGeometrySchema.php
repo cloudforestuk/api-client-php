@@ -16,7 +16,7 @@ class GeojsonGeometrySchema
     /**
      * The geometry type. We only send Points and Polygons to CloudForest.
      *
-     * @var GeojsonGeometryType
+     * @var GeojsonGeometryTypeEnum
      */
     public $type;
 
@@ -29,7 +29,7 @@ class GeojsonGeometrySchema
 
     /**
      * Constructor. Supply the required properties (those without defaults).
-     * @param GeojsonGeometryType $type
+     * @param GeojsonGeometryTypeEnum $type
      * @return void
      */
     public function __construct(GeojsonGeometryTypeEnum $type)
