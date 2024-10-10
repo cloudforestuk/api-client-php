@@ -39,11 +39,10 @@ final class ListingTest extends TestBase
         $centroid->geometry->coordinates = [-1.05, 53.25];
 
         // Inventory 3, create a compartment
-        $compartment = new CompartmentSchema();
+        $compartment = new CompartmentSchema('2');
         $compartment->id = null;
         $compartment->type = CompartmentTypeEnum::COMPARTMENT;
         $compartment->name = 'PHPUnit Forest Compartment';
-        $compartment->number = '2';
         $compartment->notes = 'These are the compartment notes';
         $compartment->boundary = $boundary;
         $compartment->centroid = $centroid;
