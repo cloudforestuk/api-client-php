@@ -6,14 +6,8 @@ namespace CloudForest\ApiClientPhp\Schema;
 
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
 use CloudForest\ApiClientPhp\Schema\SubcompartmentSchema;
-
-enum CompartmentType: string
-{
-    case COMPARTMENT = 'COMPARTMENT';
-    case PARCEL = 'PARCEL';
-    case ZONE = 'ZONE';
-    case OTHER = 'OTHER';
-}
+use CloudForest\ApiClientPhp\Schema\Enum\CompartmentTypeEnum;
+use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * CompartmentSchema defines the shape of the compartment data used to send an
@@ -34,9 +28,9 @@ class CompartmentSchema
      * The type of the compartment. This allows the logic unit 'compartment' to
      * also represent other physical units like parcels and zones, if necessary.
      *
-     * @var value-of<CompartmentType>
+     * @var CompartmentType
      */
-    public $type = 'COMPARTMENT';
+    public $type = CompartmentTypeEnum::COMPARTMENT;
 
     /**
      * The name of the compartment, or null if not known.
@@ -82,12 +76,12 @@ class CompartmentSchema
     public $subcompartments = [];
 
     /**
-     * Constructor. Instantiate classes where required.
+     * Constructor. Supply the required properties (those without defaults).
      * @return void
      */
     public function __construct()
     {
-        $this->boundary = new GeojsonSchema();
-        $this->centroid = new GeojsonSchema();
+        $this->boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
+        $this->centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
     }
 }

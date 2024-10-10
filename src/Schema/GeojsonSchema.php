@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace CloudForest\ApiClientPhp\Schema;
 
 use CloudForest\ApiClientPhp\Schema\GeojsonGeometrySchema;
-
-enum GeojsonType: string
-{
-    case FEATURE = 'Feature';
-}
+use CloudForest\ApiClientPhp\Schema\Enum\GeojsonTypeEnum;
+use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * GeojsonSchema defines the shape of a Geojson geographic data structure to
@@ -23,9 +20,9 @@ class GeojsonSchema
      * The Geojson type. We only send Features types to CloudForest, not
      * FeatureCollection types, so this is hardcoded to 'Feature'.
      *
-     * @var value-of<GeojsonType>
+     * @var GeojsonType
      */
-    public $type = 'Feature';
+    public $type = GeojsonTypeEnum::FEATURE;
 
     /**
      * The Geojson geometry.
@@ -35,11 +32,12 @@ class GeojsonSchema
     public $geometry;
 
     /**
-     * Constructor. Instantiate classes where required.
+     * Constructor. Supply the required properties (those without defaults).
+     * @param GeojsonGeometryTypeEnum $geometryType
      * @return void
      */
-    public function __construct()
+    public function __construct(GeojsonGeometryTypeEnum $geometryType)
     {
-        $this->geometry = new GeojsonGeometrySchema();
+        $this->geometry = new GeojsonGeometrySchema($geometryType);
     }
 }

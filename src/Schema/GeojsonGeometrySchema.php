@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace CloudForest\ApiClientPhp\Schema;
 
-enum GeojsonGeometryType: string
-{
-    case POLYGON = 'Polygon';
-    case POINT = 'Point';
-}
+use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * GeojsonGeometrySchema defines a geometry for use with GeojsonSchema.
@@ -20,9 +16,9 @@ class GeojsonGeometrySchema
     /**
      * The geometry type. We only send Points and Polygons to CloudForest.
      *
-     * @var value-of<GeojsonGeometryType>
+     * @var GeojsonGeometryType
      */
-    public $type = 'Point';
+    public $type;
 
     /**
      * The coordinates, as an array of [Longitude, Latitude] tuples.
@@ -30,4 +26,14 @@ class GeojsonGeometrySchema
      * @var array<array{float,float}>
      */
     public $coordinates = [];
+
+    /**
+     * Constructor. Supply the required properties (those without defaults).
+     * @param GeojsonGeometryType $type
+     * @return void
+     */
+    public function __construct(GeojsonGeometryTypeEnum $type)
+    {
+        $this->type = $type;
+    }
 }

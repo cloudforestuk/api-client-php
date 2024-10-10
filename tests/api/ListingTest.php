@@ -7,14 +7,13 @@ namespace Tests\Api;
 use Tests\TestBase;
 use CloudForest\ApiClientPhp\Dto\ListingDto;
 use CloudForest\ApiClientPhp\Schema\CompartmentSchema;
-use CloudForest\ApiClientPhp\Schema\CompartmentType;
-use CloudForest\ApiClientPhp\Schema\GeojsonGeometrySchema;
-use CloudForest\ApiClientPhp\Schema\GeojsonGeometryType;
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
 use CloudForest\ApiClientPhp\Schema\InventorySchema;
 use CloudForest\ApiClientPhp\Schema\StratumSchema;
 use CloudForest\ApiClientPhp\Schema\SubcompartmentSchema;
-use CloudForest\ApiClientPhp\Schema\SubcompartmentType;
+use CloudForest\ApiClientPhp\Schema\Enum\CompartmentTypeEnum;
+use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
+use CloudForest\ApiClientPhp\Schema\Enum\SubcompartmentTypeEnum;
 
 final class ListingTest extends TestBase
 {
@@ -32,23 +31,17 @@ final class ListingTest extends TestBase
 
         // Create an inventory structure:
         // Inventory 1, create a boundary Geojson
-        $boundaryGeometry = new GeojsonGeometrySchema();
-        $boundaryGeometry->type = GeojsonGeometryType::POLYGON;
-        $boundaryGeometry->coordinates = [[-1, 53.2], [-1.1, 53.3]];
-        $boundary = new GeojsonSchema();
-        $boundary->geometry = $boundaryGeometry;
+        $boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
+        $boundary->geometry->coordinates = [[-1, 53.2], [-1.1, 53.3]];
 
         // Inventory 2, create a centroid Geojson
-        $centroidGeometry = new GeojsonGeometrySchema();
-        $centroidGeometry->type = GeojsonGeometryType::POINT;
-        $centroidGeometry->coordinates = [-1.05, 53.25];
-        $centroid = new GeojsonSchema();
-        $centroid->geometry = $boundaryGeometry;
+        $centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
+        $centroid->geometry->coordinates = [-1.05, 53.25];
 
         // Inventory 3, create a compartment
         $compartment = new CompartmentSchema();
         $compartment->id = null;
-        $compartment->type = CompartmentType::COMPARTMENT;
+        $compartment->type = CompartmentTypeEnum::COMPARTMENT;
         $compartment->name = 'PHPUnit Forest Compartment';
         $compartment->number = '2';
         $compartment->notes = 'These are the compartment notes';
@@ -58,7 +51,7 @@ final class ListingTest extends TestBase
         // Inventory 4, create a subcompartment
         $subcompartment = new SubcompartmentSchema();
         $subcompartment->id = null;
-        $subcompartment->type = SubcompartmentType::SUBCOMPARTMENT;
+        $subcompartment->type = SubcompartmentTypeEnum::SUBCOMPARTMENT;
         $subcompartment->name = 'PHPUnit Forest Subcompartment';
         $subcompartment->letter = 'B';
         $subcompartment->notes = 'These are the subcompartment notes';

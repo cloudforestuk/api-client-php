@@ -145,7 +145,7 @@ class StratumSchema
     public $basalAreaPerHa;
 
     /**
-     * Constructor. Populate non-null properties that require a value.
+     * Constructor. Supply the required properties (those without defaults).
      * @param string $species
      * @param string $plantingYear
      * @return void

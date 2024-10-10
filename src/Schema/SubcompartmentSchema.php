@@ -6,14 +6,8 @@ namespace CloudForest\ApiClientPhp\Schema;
 
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
 use CloudForest\ApiClientPhp\Schema\InventorySchema;
-
-enum SubcompartmentType: string
-{
-    case SUBCOMPARTMENT = 'SUBCOMPARTMENT';
-    case STAND = 'STAND';
-    case SUBZONE = 'SUBZONE';
-    case OTHER = 'OTHER';
-}
+use CloudForest\ApiClientPhp\Schema\Enum\SubcompartmentTypeEnum;
+use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 
 /**
  * SubcompartmentSchema defines the shape of the subcompartment data used to
@@ -35,9 +29,9 @@ class SubcompartmentSchema
      * 'subcompartment' to also represent other physical units like stands and
      * subzones, if necessary.
      *
-     * @var value-of<SubcompartmentType>
+     * @var SubcompartmentTypeEnum
      */
-    public $type = 'SUBCOMPARTMENT';
+    public $type = SubcompartmentTypeEnum::SUBCOMPARTMENT;
 
     /**
      * The name of the subcompartment, or null if not known.
@@ -93,12 +87,12 @@ class SubcompartmentSchema
     public $inventorys = [];
 
     /**
-     * Constructor. Instantiate classes where required.
+     * Constructor. Supply the required properties (those without defaults).
      * @return void
      */
     public function __construct()
     {
-        $this->boundary = new GeojsonSchema();
-        $this->centroid = new GeojsonSchema();
+        $this->boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
+        $this->centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
     }
 }
