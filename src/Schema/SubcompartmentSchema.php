@@ -46,7 +46,7 @@ class SubcompartmentSchema
      *
      * @var string
      */
-    public $letter = 'a';
+    public $letter;
 
     /**
      * Any notes about the subcompartment, or null if none.
@@ -88,10 +88,16 @@ class SubcompartmentSchema
 
     /**
      * Constructor. Supply the required properties (those without defaults).
+     * @param string $letter
      * @return void
      */
-    public function __construct()
+    public function __construct(string $letter)
     {
+        if (mb_strlen($letter) < 1) {
+            throw new \Exception('Subcompartment letter cannot be less than 1 character');
+        }
+
+        $this->letter = $letter;
         $this->boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
         $this->centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
     }

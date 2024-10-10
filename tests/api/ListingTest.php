@@ -48,11 +48,10 @@ final class ListingTest extends TestBase
         $compartment->centroid = $centroid;
 
         // Inventory 4, create a subcompartment
-        $subcompartment = new SubcompartmentSchema();
+        $subcompartment = new SubcompartmentSchema('B');
         $subcompartment->id = null;
         $subcompartment->type = SubcompartmentTypeEnum::SUBCOMPARTMENT;
         $subcompartment->name = 'PHPUnit Forest Subcompartment';
-        $subcompartment->letter = 'B';
         $subcompartment->notes = 'These are the subcompartment notes';
         $subcompartment->boundary = $boundary;
         $subcompartment->centroid = $centroid;
