@@ -83,7 +83,7 @@ class CompartmentSchema
     public function __construct(string $number)
     {
         if (mb_strlen($number) < 1) {
-            throw new \Exception('Compartment number cannot be less than 1 characters');
+            throw new \Exception('Compartment number cannot be less than 1 character');
         }
 
         $this->number = $number;
