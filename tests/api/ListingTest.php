@@ -12,6 +12,7 @@ use CloudForest\ApiClientPhp\Schema\GeojsonGeometrySchema;
 use CloudForest\ApiClientPhp\Schema\GeojsonGeometryType;
 use CloudForest\ApiClientPhp\Schema\GeojsonSchema;
 use CloudForest\ApiClientPhp\Schema\InventorySchema;
+use CloudForest\ApiClientPhp\Schema\StratumSchema;
 use CloudForest\ApiClientPhp\Schema\SubcompartmentSchema;
 use CloudForest\ApiClientPhp\Schema\SubcompartmentType;
 
@@ -73,7 +74,13 @@ final class ListingTest extends TestBase
         $inventory->volumeTotal = 1234.5;
         $inventory->basalAreaTotal = 2000.1;
 
-        // Inventory 6, create the structure
+        // Inventory 6, create a stratum for the inventory
+        $stratum = new StratumSchema('CAR', '1976');
+        $stratum->id = null;
+        $stratum->volumePerSubcompartment = 1267.13;
+
+        // Inventory 7, create the structure
+        $inventory->stratums = [$stratum];
         $subcompartment->inventorys = [$inventory];
         $compartment->subcompartments = [$subcompartment];
 
@@ -115,5 +122,13 @@ final class ListingTest extends TestBase
         $this->assertEquals('These are the inventory notes', $inventory['notes']);
         $this->assertEquals('1999', $inventory['year']);
         $this->assertEquals('2000.1', $inventory['basalAreaTotal']);
+
+        // Verify the returned listing's stratum has the same data as above.
+        $this->assertIsArray($inventory['stratums']);
+        $this->assertCount(1, $inventory['stratums']);
+        $inventory = $inventory['stratums'][0];
+        $this->assertEquals('CAR', $inventory['species']);
+        $this->assertEquals('1976', $inventory['plantingYear']);
+        $this->assertEquals('1267.13', $inventory['volumePerSubcompartment']);
     }
 }

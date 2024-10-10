@@ -49,5 +49,11 @@ class InventorySchema
      */
     public $basalAreaTotal = null;
 
-    // @todo Stratums
+    /**
+     * The list of stratums recorded in this inventory. The spelling 'stratums'
+     * is to keep a consistent pattern of plurals thoughout this schema.
+     *
+     * @var Array<StratumSchema>
+     */
+    public $stratums = [];
 }
