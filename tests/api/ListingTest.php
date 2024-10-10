@@ -58,10 +58,9 @@ final class ListingTest extends TestBase
         $subcompartment->area = 12.36;
 
         // Inventory 5, create an inventory record for the subcompartment
-        $inventory = new InventorySchema();
+        $inventory = new InventorySchema('1999');
         $inventory->id = null;
         $inventory->notes = 'These are the inventory notes';
-        $inventory->year = '1999';
         $inventory->volumeTotal = 1234.5;
         $inventory->basalAreaTotal = 2000.1;
 

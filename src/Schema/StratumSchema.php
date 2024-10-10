@@ -149,7 +149,7 @@ class StratumSchema
      * @param string $species
      * @param string $plantingYear
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct($species, $plantingYear)
     {

@@ -79,6 +79,7 @@ class CompartmentSchema
      * Constructor. Supply the required properties (those without defaults).
      * @param string $number
      * @return void
+     * @throws \Exception
      */
     public function __construct(string $number)
     {

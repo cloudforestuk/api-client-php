@@ -90,6 +90,7 @@ class SubcompartmentSchema
      * Constructor. Supply the required properties (those without defaults).
      * @param string $letter
      * @return void
+     * @throws \Exception
      */
     public function __construct(string $letter)
     {

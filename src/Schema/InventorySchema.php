@@ -31,7 +31,7 @@ class InventorySchema
      *
      * @var string
      */
-    public $year = '2024';
+    public $year;
 
     /**
      * The total volume of this inventory (and hence its parent subcompartment)
@@ -56,4 +56,23 @@ class InventorySchema
      * @var Array<StratumSchema>
      */
     public $stratums = [];
+
+    /**
+     * Constructor. Supply the required properties (those without defaults).
+     * @param string $year
+     * @return void
+     * @throws \Exception
+     */
+    public function __construct($year)
+    {
+        if (mb_strlen($year) < 4) {
+            throw new \Exception('Inventory year cannot be less than 4 characters');
+        }
+
+        if (mb_strlen($year) > 4) {
+            throw new \Exception('Inventory year cannot be more than 4 characters');
+        }
+
+        $this->year = $year;
+    }
 }
