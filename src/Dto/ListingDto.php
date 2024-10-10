@@ -4,32 +4,15 @@ declare(strict_types=1);
 
 namespace CloudForest\ApiClientPhp\Dto;
 
-use CloudForest\ApiClientPhp\Schema\StandardCompartment;
-
-enum ListingState: string
-{
-    case DRAFT = 'DRAFT';
-    case OPEN = 'OPEN';
-    case CLOSED = 'CLOSED';
-}
-
-enum PriceType: string
-{
-    case NONE = 'NONE';
-    case OFFERS = 'OFFERS';
-    case EXACT = 'EXACT';
-}
-
-enum ListingWhen: string
-{
-    case NOW = 'NOW';
-    case FUTURE = 'FUTURE';
-}
+use CloudForest\ApiClientPhp\Schema\CompartmentSchema;
+use CloudForest\ApiClientPhp\Dto\Enum\ListingStateEnum;
+use CloudForest\ApiClientPhp\Dto\Enum\PriceTypeEnum;
+use CloudForest\ApiClientPhp\Dto\Enum\ListingWhenEnum;
 
 /**
  * ListingDto defines the shape of the listing data used by the CloudForest API.
  *
- * @package CloudForest
+ * @package CloudForest\Dto
  */
 class ListingDto
 {
@@ -49,9 +32,9 @@ class ListingDto
      * Currently DRAFT listings are not fully supported so only create listings
      * in an OPEN state.
      *
-     * @var value-of<ListingState>
+     * @var ListingStateEnum
      */
-    public $state = 'OPEN';
+    public $state = ListingStateEnum::OPEN;
 
     /**
      * The title of the listing.
@@ -71,17 +54,17 @@ class ListingDto
      * The price type. Set it to NONE until the user has a chance to go to
      * CloudForest to enter their preferred pricing.
      *
-     * @var value-of<PriceType>
+     * @var PriceTypeEnum
      */
-    public $priceType = 'NONE';
+    public $priceType = PriceTypeEnum::NONE;
 
     /**
      * When the listing is available. Set it to NOW until the user has a chance
      * to go to CloudForest to enter their preferred availability.
      *
-     * @var value-of<ListingWhen>
+     * @var ListingWhenEnum
      */
-    public $when = 'NOW';
+    public $when = ListingWhenEnum::NOW;
 
     /**
      * The units in which the listing is available as a freeform string. EG
@@ -143,7 +126,7 @@ class ListingDto
      * For Standing Timber this is likely to be the StandardCompartment
      * specification supplied as a list. For other categories alternative data
      * structures can be used.
-     * @var array<StandardCompartment>
+     * @var array<CompartmentSchema>
      */
     public $inventory = [];
 
