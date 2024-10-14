@@ -17,7 +17,6 @@ use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 
-
 /**
  * Print out a JSON Schema of the Inventory specification, starting at the top
  * with the CompartmentSchema class.
@@ -57,7 +56,9 @@ class JsonSchema
 
         // Set up reflection to loop through class properties
         $className = $this->namespace . $className;
-        if (!class_exists($className)) throw new \Exception('Cannot find class ' . $className);
+        if (!class_exists($className)) {
+            throw new \Exception('Cannot find class ' . $className);
+        }
         $reflector = new ReflectionClass($className);
         $properties = $reflector->getProperties();
 
@@ -73,14 +74,18 @@ class JsonSchema
 
             // Get the @var from the doc block for the property
             $docBlock = $property->getDocComment();
-            if (!$docBlock) throw new \Exception('Failed to find doc block for ' . $propertyName);
+            if (!$docBlock) {
+                throw new \Exception('Failed to find doc block for ' . $propertyName);
+            }
             $tokens = new TokenIterator($lexer->tokenize($docBlock));
             $phpDocNode = $phpDocParser->parse($tokens);
             $vars = $phpDocNode->getVarTagValues();
 
             // Make sure there's only one. It only makes sense to map 1 @var to
             // a JSON Schema property.
-            if (count($vars) > 1) throw new \Exception('Only 1 @var per property is supported');
+            if (count($vars) > 1) {
+                throw new \Exception('Only 1 @var per property is supported');
+            }
             $var = $vars[0];
 
             // Split up a type using generics and handle it.
@@ -105,7 +110,7 @@ class JsonSchema
                         if (class_exists($this->namespace . $generic->name)) {
                             $schema['properties'][$propertyName] = [
                                 'type' => 'array',
-                                'items' => $this->generate($generic->name)
+                                'items' => $this->generate($generic->name),
                             ];
                         }
 
@@ -113,7 +118,7 @@ class JsonSchema
                         else {
                             $schema['properties'][$propertyName] = [
                                 'type' => 'array',
-                                'items' => $this->handleType($generic)
+                                'items' => $this->handleType($generic),
                             ];
                         }
                     }
