@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace CloudForest\ApiClientPhp\Scripts;
 
-use ReflectionClass;
-use ReflectionEnum;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
-use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
+use ReflectionClass;
+use ReflectionEnum;
 
 /**
  * Print out a JSON Schema of the Inventory specification, starting at the top
