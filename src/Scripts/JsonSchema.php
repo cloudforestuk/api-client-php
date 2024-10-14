@@ -81,14 +81,16 @@ class JsonSchema
             $phpDocNode = $phpDocParser->parse($tokens);
             $vars = $phpDocNode->getVarTagValues();
 
-            // Make sure there's only one. It only makes sense to map 1 @var to
+            // Make sure there's only one. It only makes sense to map one @var to
             // a JSON Schema property.
             if (count($vars) > 1) {
-                throw new \Exception('Only 1 @var per property is supported');
+                throw new \Exception('Only one @var per property is supported');
             }
             $var = $vars[0];
 
-            // Split up a type using generics and handle it.
+            // Split up a type using generics and handle it. We only handle
+            // array generics at the moment, ie array<T>
+            //
             // EG1: An array with an array shape generic, used for coordinates:
             // array<array{float,float}>
             // EG2: A list of children:
@@ -211,7 +213,7 @@ class JsonSchema
     }
 
     /**
-     * Cast php types to a JSCO schema equivalent
+     * Cast php types to a JSON schema equivalent
      * @param string $type
      * @return string
      */
