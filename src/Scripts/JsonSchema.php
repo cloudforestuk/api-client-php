@@ -167,7 +167,8 @@ class JsonSchema
             if (count($type->items) > 0) {
                 $valueType = $type->items[0]->valueType;
                 // Get the type in the shape, assuming:
-                // 1. Everything is the same (ie, the php array<string,float> wil; yield a json schema of just items: 'string')
+                // 1. Everything is the same (ie, the php array<string,float>
+                //    will yield a json schema of just {items: 'string'})
                 // 2. The type has a name, otherwise bail to 'string'
                 $valueTypeName = property_exists($valueType, 'name') ? $valueType->name : 'string';
                 return [
