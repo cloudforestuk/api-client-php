@@ -71,7 +71,7 @@ class CompartmentSchema
     /**
      * The collection of Subcompartments within this Compartment.
      *
-     * @var Array<SubcompartmentSchema>
+     * @var array<SubcompartmentSchema>
      */
     public $subcompartments = [];
 
