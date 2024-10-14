@@ -215,7 +215,8 @@ class JsonSchema
      * @param string $type
      * @return string
      */
-    private function castType(string $type) {
+    private function castType(string $type)
+    {
         if ($type === 'float') {
             return 'number';
         } else {
