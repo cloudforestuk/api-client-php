@@ -82,7 +82,7 @@ class SubcompartmentSchema
      * spelling 'inventorys' is to keep a consistent pattern of plurals
      * thoughout this schema.
      *
-     * @var Array<InventorySchema>
+     * @var array<InventorySchema>
      */
     public $inventorys = [];
 

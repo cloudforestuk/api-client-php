@@ -53,7 +53,7 @@ class InventorySchema
      * The list of stratums recorded in this inventory. The spelling 'stratums'
      * is to keep a consistent pattern of plurals thoughout this schema.
      *
-     * @var Array<StratumSchema>
+     * @var array<StratumSchema>
      */
     public $stratums = [];
 
