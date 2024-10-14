@@ -170,7 +170,7 @@ class JsonSchema
                 $valueTypeName = property_exists($valueType, 'name') ? $valueType->name : 'string';
                 return [
                     'type' => 'array',
-                    'items' => ['type' => $valueTypeName],
+                    'items' => ['type' => $this->castType($valueTypeName)],
                     'maxItems' => count($type->items),
                 ];
             } else {
@@ -203,10 +203,23 @@ class JsonSchema
 
             // For everything else, eg:
             // @var string
-            return ['type' => $type->name];
+            return ['type' => $this->castType($type->name)];
         }
 
         // Else bail out and return a string type...
         return ['type' => 'string'];
+    }
+
+    /**
+     * Cast php types to a JSCO schema equivalent
+     * @param string $type
+     * @return string
+     */
+    private function castType(string $type) {
+        if ($type === 'float') {
+            return 'number';
+        } else {
+            return $type;
+        }
     }
 }
