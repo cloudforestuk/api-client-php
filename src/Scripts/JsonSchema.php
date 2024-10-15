@@ -253,7 +253,7 @@ class JsonSchema
             $enumName = $this->namespace . 'Enum\\' . $type->name;
             $refEnum = new ReflectionEnum($enumName);
             foreach ($refEnum->getCases() as $case) {
-                $t['enum'][] = $case->name;
+                $schema['enum'][] = $case->name;
             }
         } else {
             $schema = ['type' => $this->castType($type->name)];
