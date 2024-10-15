@@ -15,6 +15,7 @@ use CloudForest\ApiClientPhp\Schema\Enum\CompartmentTypeEnum;
 use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 use CloudForest\ApiClientPhp\Schema\Enum\SubcompartmentTypeEnum;
 use CloudForest\ApiClientPhp\Scripts\JsonSchema;
+use GuzzleHttp\Exception\ClientException;
 use Opis\JsonSchema\Validator;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 
@@ -100,6 +101,20 @@ final class ListingTest extends TestBase
             print_r((new ErrorFormatter())->format($result->error()));
         }
         $this->assertEquals(true, $valid);
+
+        // Briefly test the server's effort at schema validation. The schema
+        // should enforce a string or null for the id.
+        $listing->inventory[0]->id = 12;
+        try {
+            $listingUuid = $api->listing->create($listing);
+        } catch (ClientException $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            $contents = json_decode($e->getResponse()->getBody()->getContents());
+            $message = $contents->message;
+        }
+        $this->assertEquals(400, $statusCode);
+        $this->assertEquals('validations.listings.dto.inventory.JsonSchema', $message);
+        $listing->inventory[0]->id = null;
 
         // Use the API to create the listing in CloudForest
         $listingUuid = $api->listing->create($listing);
