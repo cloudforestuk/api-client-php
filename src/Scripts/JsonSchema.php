@@ -147,7 +147,7 @@ class JsonSchema
             if ($generic instanceof ArrayShapeNode) {
                 $schema = $this->handleType($generic);
             } elseif ($generic instanceof IdentifierTypeNode) {
-                // EG2: A list of children fro our schema
+                // EG2: A list of children from our schema
                 if (class_exists($this->namespace . $generic->name)) {
                     $schema = [
                         'type' => 'array',
