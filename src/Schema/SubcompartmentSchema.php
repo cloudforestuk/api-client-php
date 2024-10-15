@@ -99,7 +99,7 @@ class SubcompartmentSchema
         }
 
         $this->letter = $letter;
-        $this->boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
-        $this->centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
+        $this->boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::Polygon);
+        $this->centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::Point);
     }
 }
