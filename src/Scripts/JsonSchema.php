@@ -163,8 +163,9 @@ class JsonSchema
                     ];
                 }
             }
+        } else {
+            throw new \Exception('Cannot handle that type yet: ' . $type->type->name);
         }
-        else throw new \Exception('Cannot handle that type yet: ' . $type->type->name);
         return $schema;
     }
 
@@ -200,6 +201,7 @@ class JsonSchema
      */
     private function handleType($type)
     {
+        $schema = [];
         // Where the type is an array shape, eg for coordinates:
         // @var array{float,float}
         if ($type instanceof ArrayShapeNode) {
@@ -208,15 +210,17 @@ class JsonSchema
                 // Get the type in the shape, assuming:
                 // 1. Everything is the same (ie, the php array<string,float>
                 //    will yield a json schema of just {items: 'string'})
-                // 2. The type has a name, otherwise bail to 'string'
-                $valueTypeName = property_exists($valueType, 'name') ? $valueType->name : 'string';
-                return [
+                // 2. The type has a name
+                if (!property_exists($valueType, 'name')) {
+                    throw new \Exception('Value type does not have a name: ' . json_encode($valueType));
+                }
+                $schema = [
                     'type' => 'array',
-                    'items' => ['type' => $this->castType($valueTypeName)],
+                    'items' => ['type' => $this->castType($valueType->name)],
                     'maxItems' => count($type->items),
                 ];
             } else {
-                return ['type' => 'array'];
+                $schema = ['type' => 'array'];
             }
         }
 
@@ -225,13 +229,13 @@ class JsonSchema
             // Where the type is one of our schema classes, eg:
             // @var GeojsonSchema
             if (class_exists($this->namespace . $type->name)) {
-                return $this->generate($type->name);
+                $schema = $this->generate($type->name);
             }
 
             // Where the type is one of our schema enums, eg:
             // @var CompartmentTypeEnum
             elseif (enum_exists($this->namespace . 'Enum\\' . $type->name)) {
-                $t = [
+                $schema = [
                     'type' => 'string',
                     'enum' => [],
                 ];
@@ -240,16 +244,17 @@ class JsonSchema
                 foreach ($refEnum->getCases() as $case) {
                     $t['enum'][] = $case->name;
                 }
-                return $t;
             }
 
-            // For everything else, eg:
-            // @var string
-            return ['type' => $this->castType($type->name)];
+            // Else handle simple types like string, float, etc
+            else {
+                $schema = ['type' => $this->castType($type->name)];
+            }
+        } else {
+            throw new \Exception('Could not handle type node: ' . json_encode($type));
         }
 
-        // Else bail out and return a string type...
-        return ['type' => 'string'];
+        return $schema;
     }
 
     /**
@@ -259,10 +264,32 @@ class JsonSchema
      */
     private function castType(string $type)
     {
-        if ($type === 'float') {
-            return 'number';
-        } else {
-            return $type;
+        switch ($type) {
+            case 'null':
+                $cast = 'null';
+                break;
+            case 'bool':
+                $cast = 'boolean';
+                break;
+            case 'int':
+                $cast = 'integer';
+                break;
+            case 'float':
+                $cast = 'number';
+                break;
+            case 'string':
+                $cast = 'string';
+                break;
+            case 'array':
+                $cast = 'array';
+                break;
+            case 'object':
+                $cast = 'object';
+                break;
+            default:
+                throw new \Exception('Could not cast type: ' . $type);
         }
+
+        return $cast;
     }
 }
