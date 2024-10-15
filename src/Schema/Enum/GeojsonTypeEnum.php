@@ -7,5 +7,5 @@ namespace CloudForest\ApiClientPhp\Schema\Enum;
 enum GeojsonTypeEnum: string
 {
     // Lower case value to match GeoJSON spec
-    case FEATURE = 'Feature';
+    case Feature = 'Feature';
 }

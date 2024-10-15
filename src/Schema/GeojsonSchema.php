@@ -22,7 +22,7 @@ class GeojsonSchema
      *
      * @var GeojsonTypeEnum
      */
-    public $type = GeojsonTypeEnum::FEATURE;
+    public $type = GeojsonTypeEnum::Feature;
 
     /**
      * The Geojson geometry.
