@@ -160,7 +160,10 @@ class JsonSchema
         $generic = $type->genericTypes[0];
 
         if ($generic instanceof ArrayShapeNode) {
-            $schema = $this->handleType($generic);
+            $schema = [
+                'type' => 'array',
+                'items' => $this->handleType($generic)
+            ];
         } elseif ($generic instanceof IdentifierTypeNode) {
             if (class_exists($this->namespace . $generic->name)) {
                 $schema = [
