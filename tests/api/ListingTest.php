@@ -31,11 +31,11 @@ final class ListingTest extends TestBase
 
         // Create an inventory structure:
         // Inventory 1, create a boundary Geojson
-        $boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::POLYGON);
+        $boundary = new GeojsonSchema(GeojsonGeometryTypeEnum::Polygon);
         $boundary->geometry->coordinates = [[-1, 53.2], [-1.1, 53.3]];
 
         // Inventory 2, create a centroid Geojson
-        $centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::POINT);
+        $centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::Point);
         $centroid->geometry->coordinates = [-1.05, 53.25];
 
         // Inventory 3, create a compartment
