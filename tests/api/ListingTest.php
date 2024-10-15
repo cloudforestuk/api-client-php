@@ -18,7 +18,6 @@ use CloudForest\ApiClientPhp\Scripts\JsonSchema;
 use Opis\JsonSchema\Validator;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 
-
 final class ListingTest extends TestBase
 {
     public function testCreate(): void
