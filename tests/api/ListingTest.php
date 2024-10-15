@@ -14,6 +14,10 @@ use CloudForest\ApiClientPhp\Schema\SubcompartmentSchema;
 use CloudForest\ApiClientPhp\Schema\Enum\CompartmentTypeEnum;
 use CloudForest\ApiClientPhp\Schema\Enum\GeojsonGeometryTypeEnum;
 use CloudForest\ApiClientPhp\Schema\Enum\SubcompartmentTypeEnum;
+use CloudForest\ApiClientPhp\Scripts\JsonSchema;
+use Opis\JsonSchema\Validator;
+use Opis\JsonSchema\Errors\ErrorFormatter;
+
 
 final class ListingTest extends TestBase
 {
@@ -36,7 +40,7 @@ final class ListingTest extends TestBase
 
         // Inventory 2, create a centroid Geojson
         $centroid = new GeojsonSchema(GeojsonGeometryTypeEnum::Point);
-        $centroid->geometry->coordinates = [-1.05, 53.25];
+        $centroid->geometry->coordinates = [[-1.05, 53.25]];
 
         // Inventory 3, create a compartment
         $compartment = new CompartmentSchema('2');
@@ -79,6 +83,24 @@ final class ListingTest extends TestBase
         $listing->title = 'Test Listing from PHP Unit';
         $listing->description = 'This is a test Listing from PHP Unit';
         $listing->inventory = [$compartment];
+
+        // Verify the listing's inventory can be validated against our schema
+        // This also tests the schema generation as well as ensuring the DTO
+        // produices valid JSON. The JSON encode then decode casts our schema
+        // (assoc array) and compartment data (classes) to a stdClass object for
+        // the validator.
+        $generator = new JsonSchema();
+        $schemaObj = json_decode(json_encode($generator->generate('CompartmentSchema')));
+        $compartmentObj = json_decode(json_encode($compartment));
+        $validator = new Validator();
+        $result = $validator->validate($compartmentObj, $schemaObj);
+        if ($result->isValid()) {
+            $valid = true;
+        } else {
+            $valid = false;
+            print_r((new ErrorFormatter())->format($result->error()));
+        }
+        $this->assertEquals(true, $valid);
 
         // Use the API to create the listing in CloudForest
         $listingUuid = $api->listing->create($listing);
