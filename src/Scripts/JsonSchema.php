@@ -139,32 +139,35 @@ class JsonSchema
         $schema = [];
         $typeName = $type->type->name;
         // Limitation 1: Only support array types with generics
-        if ($typeName === 'array') {
-            // Limitation2: Only support a single generic.
-            $generic = $type->genericTypes[0];
+        if ($typeName !== 'array') {
+            throw new \Exception('Cannot handle that type yet: ' . $typeName);
+        }
 
-            // EG1: Array shape generics
-            if ($generic instanceof ArrayShapeNode) {
-                $schema = $this->handleType($generic);
-            } elseif ($generic instanceof IdentifierTypeNode) {
-                // EG2: A list of children from our schema
-                if (class_exists($this->namespace . $generic->name)) {
-                    $schema = [
-                        'type' => 'array',
-                        'items' => $this->generate($generic->name),
-                    ];
-                }
+        // Limitation2: Only support a single generic.
+        if (count($type->genericTypes) > 1) {
+            throw new \Exception('Cannot handle more than one generic' . $typeName);
+        }
+        $generic = $type->genericTypes[0];
 
-                // EG3: A list of built-ins
-                else {
-                    $schema = [
-                        'type' => 'array',
-                        'items' => $this->handleType($generic),
-                    ];
-                }
+        // EG1: Array shape generics
+        if ($generic instanceof ArrayShapeNode) {
+            $schema = $this->handleType($generic);
+        } elseif ($generic instanceof IdentifierTypeNode) {
+            // EG2: A list of children from our schema
+            if (class_exists($this->namespace . $generic->name)) {
+                $schema = [
+                    'type' => 'array',
+                    'items' => $this->generate($generic->name),
+                ];
             }
-        } else {
-            throw new \Exception('Cannot handle that type yet: ' . $type->type->name);
+
+            // EG3: A list of built-ins
+            else {
+                $schema = [
+                    'type' => 'array',
+                    'items' => $this->handleType($generic),
+                ];
+            }
         }
         return $schema;
     }
