@@ -22,10 +22,10 @@ use ReflectionEnum;
  * Print out a JSON Schema of the Inventory specification, starting at the top
  * with the CompartmentSchema class.
  *
- * It by no means supports all PHPDoc type annotations, but hopefully it
- * will always throw an exception in these cases rather than coming up with an
- * incorrect JSON schema. We can then work out whether to change the PHPDoc or
- * upgrade this to support it.
+ * This does not support all PHPDoc var tag types, but it is intended to throw
+ * an exception for those it cannot support, rather than coming up with an
+ * incorrect JSON schema. When an exception is encountered, we can then work out
+ * whether to change the PHPDoc or upgrade this code to support it.
  *
  * It uses PHPStan's PHPDoc parser, so it therefore supports phpstan's take on
  * PHPDoc types: https://phpstan.org/writing-php-code/phpdoc-types
@@ -39,8 +39,8 @@ class JsonSchema
     private Lexer $lexer;
 
     /**
-     * Set up the doc block parser to extract var tags. It can be then be reused
-     * throughout the recursive calls to $this->generate.
+     * Set up the doc block parser to extract var tags in the constructor. It
+     * can be then be reused throughout the recursive calls to $this->generate.
      * @return void
      */
     public function __construct()
@@ -52,7 +52,7 @@ class JsonSchema
     }
 
     /**
-     * Static method to run the generator.
+     * Static method to run the generator from composer.json.
      * @see composer.json
      * @return void
      * @throws \Exception
@@ -67,9 +67,9 @@ class JsonSchema
     /**
      * Generate a JsonSchema for the class specified in $className.
      *
-     * Use reflection to get a list of the class properties.
+     * First, use reflection to get a list of the class properties.
      *
-     * Then loop through the properties to add them to the schema. For each
+     * Then, loop through the properties to add them to the schema. For each
      * property, get the doc block and extract the var tags. Ensure there
      * is only one: it only makes sense to map one var tag to a JSON Schema
      * property. Then work out what type is in the var tag and handle it
@@ -93,7 +93,6 @@ class JsonSchema
         }
         $reflector = new ReflectionClass($className);
         $properties = $reflector->getProperties();
-
 
         foreach ($properties as $property) {
             $propertyName = $property->getName();
@@ -130,13 +129,13 @@ class JsonSchema
      *
      * Limitation 2: The GenericTypeNode has two members, type and genericTypes,
      * which allows it to support multiple generics like SomethingClever<T1, T2>
-     * Currently we only support a single generic.
+     * However, currently we only support a single generic: SmethingSimple<T1>
      *
      * EG1: An array with an array shape generic, used for coordinates:
      * array<array{float,float}>
      *
      * EG2: A list of children from our schema:
-     * [Array<Subcompartment>
+     * Array<Subcompartment>
      *
      * EG3: A list of a built-in type:
      * Array<string>
