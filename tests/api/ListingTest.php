@@ -157,4 +157,41 @@ final class ListingTest extends TestBase
         $this->assertEquals('1976', $inventory['plantingYear']);
         $this->assertEquals('1267.13', $inventory['volumePerSubcompartment']);
     }
+
+    // A test to lookup all of a user's listings and then get more information
+    // about one of them.
+    public function testLookup(): void
+    {
+        // This is a short cut for now - log in directly using the stored user/pass
+        // Eventually this should use an access token obtained from the OAuth exchange
+        $access = $this->login();
+        $this->assertIsString($access);
+        $this->assertNotEmpty($access);
+
+        // Get the API client and set the access token from above.
+        $api = $this->getCloudForestClient();
+        $api->setAccess($access);
+
+        // Get all of the user's listings
+        $ownListings = $api->listing->findOwn();
+
+        // We don't know how many users there will be are because the marketplace
+        // test server is out of our control here. But there should be at least
+        // one because we created one above.
+        $this->assertGreaterThan(1, count($ownListings));
+
+        // Get the first listing
+        $first = $ownListings[0];
+        $title = $first['title'];
+        $state = $first['state'];
+        $this->assertIsString($title);
+        $this->assertIsString($state);
+
+        // Verify that we can also get this listing by its UUID
+        $uuid = $first['id'];
+        $listing = $api->listing->findOne($uuid);
+        $this->assertIsArray($listing);
+        $this->assertEquals($listing['title'], $title);
+        $this->assertEquals($listing['state'], $state);
+    }
 }
