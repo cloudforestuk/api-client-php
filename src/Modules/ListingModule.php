@@ -125,7 +125,8 @@ class ListingModule extends ApiModuleBase
      * Find all the listings belonging to the user associated with the JWT.
      * @return mixed The listing data as an associative array.
      */
-    public function findOwn() {
+    public function findOwn()
+    {
         try {
             $response = $this->client->request(
                 'GET',
@@ -134,7 +135,7 @@ class ListingModule extends ApiModuleBase
                     'headers' => $this->getHeadersWithAccessBearer(),
                 ]
             );
-        }  catch (GuzzleException $e) {
+        } catch (GuzzleException $e) {
             throw $e;
         }
 
